@@ -1,0 +1,25 @@
+/* Navbar.css */
+.navbar {
+    background-color: #c40065;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo img {
+    max-width: 100px; /* Ajuste o tamanho máximo da logo conforme necessário */
+    height: auto;
+  }
+  
+  /* Estilos para dispositivos móveis */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+    }
+  
+    .logo {
+      margin-bottom: 10px;
+    }
+  }
+  
