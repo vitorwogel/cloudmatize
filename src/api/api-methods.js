@@ -4,22 +4,22 @@ export const getItems = () => {
     ).then(res => res.json())
 }
 
-export const addItem = (name, price, count) => {
+export const addItem = (item) => {
     return fetch('/addItem/', {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'post',
-        body: JSON.stringify([{ name: name, price: price, count: count }])
+        body: JSON.stringify({ name: item.name, price: item.price, count: item.count })
     }).then(res => res.json())
 };
 
-export const addPerson = (name, email, total_spent) => {
+export const addPerson = (person) => {
     return fetch('/addPerson/', {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'post',
-        body: JSON.stringify({ name: name, email: email, total_spent: total_spent })
+        body: JSON.stringify({ name: person.name, email: person.email, total_spent: person.total_spent/*, items: person.frutas*/ })
     }).then(res => res.json())
 };

@@ -13,17 +13,14 @@ function Checkout(props){
         e.preventDefault()
         nomeRef.current.focus()
 
-        frutas.map(fruta => addItem(fruta.nome, fruta.preco, fruta.quantidade).then(res => {
-            console.log(res)
-        }).catch(error => console.error("Erro:", error)))
-
         setPessoa({
             name: nomePessoa,
             email: email,
-            total_spent: total
+            total_spent: total,
+            frutas: frutas
         })
 
-        addPerson(pessoa.name, pessoa.email, pessoa.total_spent).then(response => {
+        addPerson(pessoa).then(response => {
             console.log(response)
         }).catch(error => console.error("Erro ao add pessoa:", error))
     }
