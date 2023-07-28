@@ -1,10 +1,16 @@
+import { useEffect } from "react"
+
 function Resumo(props){
 
-    const {frutas} = props
+    const {frutas, setTotal} = props
 
     const calcularTotal = (fruta) => parseFloat(fruta.preco) * fruta.quantidade
 
     const totalCompras = frutas.reduce((total, fruta) => total + calcularTotal(fruta), 0)
+
+    useEffect(() => {
+        setTotal(totalCompras)
+    })
 
     return(
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: "60px"}}>
