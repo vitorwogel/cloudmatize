@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Container, TextField, Typography, Box, Button } from "@mui/material"
 import { addItem } from "../api/api-methods"
 
-function AdminField(props) {
+function AdminField() {
 
     const [fruta, setFruta] = useState({})
     const [name, setName] = useState('')
@@ -27,11 +27,13 @@ function AdminField(props) {
             price: price,
             count: count
         })
+    }
 
+    useEffect(() => {
         addItem(fruta).then(response => {
             console.log(response)
         }).catch(error => console.error("Erro ao add fruta:", error))
-    }
+    }, [fruta])
 
     return(
         <Container>

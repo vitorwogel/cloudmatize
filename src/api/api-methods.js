@@ -20,6 +20,6 @@ export const addPerson = (person) => {
             'Content-Type': 'application/json'
         },
         method: 'post',
-        body: JSON.stringify({ name: person.name, email: person.email, total_spent: person.total_spent/*, items: person.frutas*/ })
+        body: JSON.stringify({ name: person.name, email: person.email, total_spent: person.total_spent, items: person.frutas })
     }).then(res => res.json())
 };

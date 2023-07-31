@@ -1,34 +1,38 @@
-import Item from './item.js';
+import { useEffect, useState } from "react"
+import { getItems } from "../api/api-methods" 
+import Item from './item'
+import { Container } from "@mui/material"
 
-function ItemRow(props){
+function ItemsPage(props) {
 
-    const { frutas, onAddFruta } = props;
+    const [items, setItems] = useState([])
+    const [loading, setLoading] = useState(true)
+    const {frutas, onAddFruta} = props
 
-    return(
-        <div style={{display: 'flex', justifyContent: 'space-around'}}>
-            <Item
-                titulo="Melancia"
-                preco="6.99"
-                texto="Fruta vermelha doce e deliciosa."
-                frutas={frutas}
-                onAddFruta={onAddFruta}
-            />
-            <Item
-                titulo="Banana"
-                preco="2.99"
-                texto="Fruta amarela colhida em cachos."
-                frutas={frutas}
-                onAddFruta={onAddFruta}
-            />
-            <Item
-                titulo="Kiwi"
-                preco="4.99"
-                texto="Fruta verde azeda e pequena."
-                frutas={frutas}
-                onAddFruta={onAddFruta}
-            />
-        </div>
-    )
+    useEffect(() => {
+        getItems().then(data => {
+            setItems(data)
+            setLoading(false)
+        }).catch(error => {
+            console.error("Error: ", error)
+            setLoading(false)
+        })
+    }, [])
+
+    if(loading === true){
+        return(
+            <h1>Loading...</h1>
+        )
+
+    }else{
+        return(
+            <Container sx={{display: 'flex', justifyContent: 'space-around'}}> 
+                {items.map((item) => (
+                    <Item key={item.id} item={item} frutas={frutas} onAddFruta={onAddFruta} />
+                ))}
+            </Container>
+        )
+    }
 }
 
-export default ItemRow
+export default ItemsPage

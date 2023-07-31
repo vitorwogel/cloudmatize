@@ -1,5 +1,5 @@
-import { useRef, useState } from "react"
-import { addItem, addPerson } from "../api/api-methods"
+import { useEffect, useRef, useState } from "react"
+import { addPerson } from "../api/api-methods"
 
 function Checkout(props){
 
@@ -9,6 +9,12 @@ function Checkout(props){
     const [pessoa, setPessoa] = useState({})
     const nomeRef = useRef('')
 
+    useEffect(() => {
+        addPerson(pessoa).then(response => {
+            console.log(response)
+        }).catch(error => console.error("Erro ao add pessoa:", error))
+    }, [pessoa])
+
     const compraRealizada = (e) => {
         e.preventDefault()
         nomeRef.current.focus()
@@ -17,12 +23,8 @@ function Checkout(props){
             name: nomePessoa,
             email: email,
             total_spent: total,
-            frutas: frutas
+            frutas: JSON.stringify(frutas)
         })
-
-        addPerson(pessoa).then(response => {
-            console.log(response)
-        }).catch(error => console.error("Erro ao add pessoa:", error))
     }
 
     const handleName = (e) => {
@@ -42,18 +44,6 @@ function Checkout(props){
                 <label>
                     E-mail:
                     <input type="email" onChange={handleEmail}/>
-                </label>
-                <label>
-                    N. do Cartao:
-                    <input type="text" />
-                </label>
-                <label>
-                    Validade:
-                    <input type="date" />
-                </label>
-                <label>
-                    CVC:
-                    <input type="number" />
                 </label>
                 <button type="submit" onClick={compraRealizada}>Comprar</button>
             </form>
